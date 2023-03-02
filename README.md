@@ -22,7 +22,7 @@ yarn add morgan@1.0.0 -E
 
 ## Open package.json in VS Code
 
-Checkov should found a vulnerability for morgan dependecy
+Checkov should find a vulnerability in the morgan dependecy
 
 ## Run a local Checkov scan
 
