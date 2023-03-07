@@ -9,7 +9,7 @@ RUN pip3 install --upgrade pip && pip3 install --upgrade setuptools && \
 # Set the working directory to /app
 WORKDIR /app
 COPY package.json yarn.lock ./
- RUN yarn install --frozen-lockfile 
+RUN yarn install --frozen-lockfile 
 
 # Install the Node.js dependencies using Yarn
 RUN yarn install
