@@ -1,7 +1,5 @@
 FROM node:16
 
-
-RUN npm install -g yarn
 # Install Python and pip
 RUN apt-get update && apt-get install -y python3 python3-pip
 # Install the Checkov tool
@@ -10,12 +8,14 @@ RUN pip3 install checkov
 # Set the working directory to /app
 WORKDIR /app
 COPY package.json yarn.lock ./
-
+USER node
 # Install the Node.js dependencies using Yarn
 RUN yarn install
 
 # Copy the rest of the application files to the working directory
 COPY . .
+
+COPY --chown=node . .
 
 # Expose port 3000 for the application
 EXPOSE 3000

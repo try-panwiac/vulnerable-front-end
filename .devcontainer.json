@@ -11,9 +11,11 @@
             "settings": {},
             "vscode": {
                 "extensions": [
-                    "dbaeumer.vscode-eslint",
                     "GitHub.vscode-pull-request-github",
-                    "bridgecrew.checkov"
+                    "bridgecrew.checkov",
+                    "dbaeumer.vscode-eslint",
+                    "esbenp.prettier-vscode",
+                    "eamodio.gitlens"
                 ]
             },
             "codespaces": {
