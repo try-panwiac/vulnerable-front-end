@@ -29,9 +29,9 @@
         }
     },
     "forwardPorts": [
-        3000
+        8079
     ],
-    "appPort": 3000,
+    "appPort": 8079,
     "postCreateCommand": "yarn install",
     "remoteUser": "node"
 }
