@@ -1,0 +1,34 @@
+{
+    "name": "Node.js with Yarn and Checkov",
+    "image": "node:16",
+    // Configure tool-specific properties.
+    "customizations": {
+        // Configure properties specific to VS Code.
+        "vscode": {
+            "settings": {},
+            "vscode": {
+                "extensions": [
+                    "dbaeumer.vscode-eslint",
+                    "GitHub.vscode-pull-request-github",
+                    "bridgecrew.checkov"
+                ]
+            },
+            "codespaces": {
+                "repositories": {
+                    "devcontainers/features": {
+                        "permissions": {
+                            "contents": "write",
+                            "workflows": "write"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "forwardPorts": [
+        3000
+    ],
+    "appPort": 3000,
+    "postCreateCommand": "yarn install",
+    "remoteUser": "node"
+}
