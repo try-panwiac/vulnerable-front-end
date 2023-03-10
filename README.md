@@ -35,8 +35,6 @@ export MY_PRISMA_KEY="<AccessKey>::<SecretKey>"
 
 - Using the Vscode terminal window, run a local Checkov scan within Docker container:
 
-- Alternatively, if you have docker installed you may use this command:
-
 ```
 docker run --rm -v $PWD:/checkovScan -w /checkovScan bridgecrew/checkov:latest -f yarn.lock --bc-api-key $MY_PRISMA_KEY --prisma-api-url $MY_PRISMA_API_URL --repo-id $USER/scascan --use-enforcement-rules
 ```
