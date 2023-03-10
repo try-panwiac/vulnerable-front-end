@@ -15,7 +15,8 @@
                     "bridgecrew.checkov",
                     "dbaeumer.vscode-eslint",
                     "esbenp.prettier-vscode",
-                    "eamodio.gitlens"
+                    "eamodio.gitlens",
+                    "wesbos.theme-cobalt2"
                 ]
             },
             "codespaces": {
@@ -30,6 +31,19 @@
             }
         }
     },
+    "dev.containers.defaultExtensions": [
+        "GitHub.vscode-pull-request-github",
+        "bridgecrew.checkov",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "eamodio.gitlens",
+        "wesbos.theme-cobalt2"
+    ],
+    "remote.extensionKind": {
+        "ms-vscode-remote.remote-ssh-edit": [
+            "workspace"
+        ]
+    }
     "forwardPorts": [
         3000
     ],
