@@ -5,6 +5,7 @@
         "context": ".."
     },
     // Configure tool-specific properties.
+    //id:wesbos.theme-cobalt2
     "customizations": {
         // Configure properties specific to VS Code.
         "vscode": {
