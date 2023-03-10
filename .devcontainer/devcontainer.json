@@ -33,6 +33,13 @@
     "forwardPorts": [
         3000
     ],
+    "features": {
+        "docker-in-docker": {
+            "version": "latest",
+            "moby": true,
+            "dockerDashComposeVersion": "v1"
+        }
+    },
     "appPort": 3000,
     "postCreateCommand": "yarn install",
     "remoteUser": "node"
