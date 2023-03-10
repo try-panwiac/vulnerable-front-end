@@ -33,17 +33,19 @@ export MY_PRISMA_API_URL="https://apix.prismacloud.io" (where x=app stack)
 export MY_PRISMA_KEY="<AccessKey>::<SecretKey>"
 ```
 
-- Using the Vscode terminal window, run a local Checkov scan:
-
-```
-checkov -f yarn.lock --bc-api-key $MY_PRISMA_KEY --prisma-api-url $MY_PRISMA_API_URL  --repo-id $USER/scascan --use-enforcement-rules
-```
+- Using the Vscode terminal window, run a local Checkov scan within Docker container:
 
 - Alternatively, if you have docker installed you may use this command:
 
 ```
-docker run --rm -v $PWD:/checkovScan -w /checkovScan bridgecrew/checkov:latest -f yarn.lock --bc-api-key $MY_PRISMA_KEY --prisma-api-url $MY_PRISMA_API_URL --repo-id $USER/scascan
---use-enforcement-rules
+docker run --rm -v $PWD:/checkovScan -w /checkovScan bridgecrew/checkov:latest -f yarn.lock --bc-api-key $MY_PRISMA_KEY --prisma-api-url $MY_PRISMA_API_URL --repo-id $USER/scascan --use-enforcement-rules
+```
+
+### Checkov installed locally
+
+If you have already installed Checkov, please follow the instructions below to complete the next steps
+```
+checkov -f yarn.lock --bc-api-key $MY_PRISMA_KEY --prisma-api-url $MY_PRISMA_API_URL  --repo-id $USER/scascan --use-enforcement-rules
 ```
 
 ## Check in Your Code to GitHub
