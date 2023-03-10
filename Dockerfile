@@ -1,24 +1,18 @@
-FROM node:16
+FROM mhart/alpine-node:6.3
+ENV NODE_ENV "production"
+ENV PORT 8079
+EXPOSE 8079
+RUN addgroup mygroup && adduser -D -G mygroup myuser && mkdir -p /usr/src/app && chown -R myuser /usr/src/app
+RUN npm install -g yarn
+USER myuser
 
-# Install Python and pip
-RUN apt-get update && apt-get install -y python3 python3-pip
-# Install the Checkov tool
-RUN pip3 install --upgrade pip && pip3 install --upgrade setuptools && \
-    pip3 install checkov
-
-# Set the working directory to /app
-WORKDIR /app
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile 
-
-# Install the Node.js dependencies using Yarn
+# Prepare app directory
+WORKDIR /usr/src/app
+COPY package.json /usr/src/app/
+COPY yarn.lock /usr/src/app/
 RUN yarn install
 
-# Copy the rest of the application files to the working directory
-COPY . .
+COPY . /usr/src/app
 
-# Expose port 3000 for the application
-EXPOSE 3000
-
-# Start the application using the "start" script defined in the package.json file
-CMD ["yarn", "start"]
+# Start the app
+CMD ["npm", "start"]
