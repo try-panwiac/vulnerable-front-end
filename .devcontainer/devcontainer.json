@@ -15,7 +15,6 @@
                 "bridgecrew.checkov",
                 "dbaeumer.vscode-eslint",
                 "esbenp.prettier-vscode",
-                "eamodio.gitlens",
                 "wesbos.theme-cobalt2"
             ],
             "codespaces": {
