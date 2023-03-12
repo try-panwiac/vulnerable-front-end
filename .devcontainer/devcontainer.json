@@ -1,0 +1,45 @@
+{
+    "name": "Node.js with Yarn and Checkov",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
+    // Configure tool-specific properties.
+    //id:wesbos.theme-cobalt2
+    "customizations": {
+        // Configure properties specific to VS Code.
+        "vscode": {
+            "settings": {},
+            "extensions": [
+                "GitHub.vscode-pull-request-github",
+                "bridgecrew.checkov",
+                "dbaeumer.vscode-eslint",
+                "esbenp.prettier-vscode",
+                "wesbos.theme-cobalt2"
+            ],
+            "codespaces": {
+                "repositories": {
+                    "devcontainers/features": {
+                        "permissions": {
+                            "contents": "write",
+                            "workflows": "write"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "forwardPorts": [
+        3000
+    ],
+    "features": {
+        "docker-in-docker": {
+            "version": "latest",
+            "moby": true,
+            "dockerDashComposeVersion": "v1"
+        }
+    },
+    "appPort": 3000,
+    "postCreateCommand": "yarn install",
+    "remoteUser": "node"
+}
