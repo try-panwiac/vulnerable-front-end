@@ -1,9 +1,17 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
 {
-    "name": "Node.js with Yarn and Checkov",
-    "build": {
-        "dockerfile": "Dockerfile",
-        "context": ".."
-    },
+	"name": "Python 3, Node.js with Yarn and Checkov",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/python:0-3.9",
+	"features": {
+		"ghcr.io/devcontainers/features/node:1": {},
+        "docker-in-docker": {
+            "version": "latest",
+            "moby": true,
+            "dockerDashComposeVersion": "v1"
+        }
+	},
     // Configure tool-specific properties.
     //id:wesbos.theme-cobalt2
     "customizations": {
@@ -32,14 +40,5 @@
     "forwardPorts": [
         3000
     ],
-    "features": {
-        "docker-in-docker": {
-            "version": "latest",
-            "moby": true,
-            "dockerDashComposeVersion": "v1"
-        }
-    },
     "appPort": 3000,
-    "postCreateCommand": "yarn install",
-    "remoteUser": "node"
 }
