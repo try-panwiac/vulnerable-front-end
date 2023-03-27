@@ -16,3 +16,6 @@ COPY . /usr/src/app
 
 # Start the app
 CMD ["npm", "start"]
+
+
+
