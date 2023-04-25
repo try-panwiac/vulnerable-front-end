@@ -1,19 +1,18 @@
-var request      = require("request")
-  , express      = require("express")
-  , morgan       = require("morgan")
-  , path         = require("path")
-  , bodyParser   = require("body-parser")
-  , async        = require("async")
+var request = require("request")
+  , express = require("express")
+  , path = require("path")
+  , bodyParser = require("body-parser")
+  , async = require("async")
   , cookieParser = require("cookie-parser")
-  , session      = require("express-session")
-  , epimetheus   = require("epimetheus")
-  , config       = require("./config")
-  , helpers      = require("./helpers")
-  , cart         = require("./api/cart")
-  , catalogue    = require("./api/catalogue")
-  , orders       = require("./api/orders")
-  , user         = require("./api/user")
-  , app          = express()
+  , session = require("express-session")
+  , epimetheus = require("epimetheus")
+  , config = require("./config")
+  , helpers = require("./helpers")
+  , cart = require("./api/cart")
+  , catalogue = require("./api/catalogue")
+  , orders = require("./api/orders")
+  , user = require("./api/user")
+  , app = express()
 
 epimetheus.instrument(app);
 
@@ -23,7 +22,6 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(helpers.errorHandler);
 app.use(helpers.sessionMiddleware);
-app.use(morgan("dev", {}));
 
 var domain = "";
 process.argv.forEach(function (val, index, array) {
