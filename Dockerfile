@@ -6,7 +6,7 @@ RUN addgroup mygroup && adduser -D -G mygroup myuser && mkdir -p /usr/src/app &&
 RUN npm install -g yarn
 USER myuser
 
-# Prepare app directory
+# Prepare app directory for me
 WORKDIR /usr/src/app
 COPY package.json /usr/src/app/
 COPY yarn.lock /usr/src/app/
