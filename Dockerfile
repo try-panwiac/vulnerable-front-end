@@ -4,7 +4,7 @@ ENV PORT 8079
 EXPOSE 8079
 RUN addgroup mygroup && adduser -D -G mygroup myuser && mkdir -p /usr/src/app && chown -R myuser /usr/src/app
 RUN npm install -g yarn
-USER myuser
+USER myuser2
 
 # Prepare app directory
 WORKDIR /usr/src/app
