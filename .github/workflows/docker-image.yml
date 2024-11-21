@@ -1,0 +1,76 @@
+name: Docker Image CI
+on:
+  pull_request:
+    types:
+      - closed
+# on:
+#   push:
+#     branches: [ "main" ]
+#   pull_request:
+#     branches: [ "main" ]
+
+jobs:
+
+  Build_Secure_Image:
+
+    runs-on: ubuntu-latest
+    strategy:
+                  matrix:
+                        python-version: [3.10]
+    # name: Set environmental variables for Prisma Cloud access
+    env: 
+      TL_USER: ${{ secrets.TL_USER }}
+      TL_PASS: ${{ secrets.TL_PASS }}
+      TL_CONSOLE: ${{ secrets.TL_CONSOLE }} 
+      BYPASS_REPOSCAN: 1
+      BYPASS_OSS_LICENSE: 1
+      BYPASS_IMAGESCAN: 0
+      BYPASS_WF: 1
+      BYPASS_SANDBOX: 1
+      PRISMA_API_URL: https://api0.prismacloud.io
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Login via Azure CLI
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Build image
+      uses: azure/docker-login@v1
+      with: 
+        login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+    - run: docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/vulnerable-test:${{ github.sha }} 
+
+    - name: Download twistcli
+      run: curl -s -k -u $TL_USER:$TL_PASS "https://$TL_CONSOLE/api/v1/util/twistcli" -v -o twistcli;chmod +x twistcli
+    
+    - name: Scan image for vulns and compliance issues
+      run: ./twistcli images scan --u $TL_USER --p $TL_PASS --address https://$TL_CONSOLE --details ${{ secrets.REGISTRY_LOGIN_SERVER }}/vulnerable-test:${{ github.sha }} -o output.json
+    
+    - name: Install checkov
+      run: pip3 install checkov
+    
+    - name: Checkov image scan
+      id: checkov
+      # uses: bridgecrewio/checkov-action@master
+      # with:
+      #   quiet: true
+      #   framework: sca_package
+      #   api-key: ${{ secrets.BC_API_KEY }}
+      #   directory: .
+      #   docker_image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/vulnerable-test:${{ github.sha }}
+      #   dockerfile_path: ./Dockerfile
+      #   use_enforcement_rules: true
+      run: checkov --bc-api-key ${{ secrets.BC_API_KEY }} --branch update-actions-workflow --repo-id jluevan13/vulnerable-front-end --docker-image ${{ secrets.REGISTRY_LOGIN_SERVER }}/vulnerable-test:${{ github.sha }} --dockerfile-path Dockerfile --use-enforcement-rules --framework sca_package  --output sarif 
+
+    - name: Push image
+      uses: azure/docker-login@v1
+      with: 
+        login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+    - run: docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/vulnerable-test:${{ github.sha }}
